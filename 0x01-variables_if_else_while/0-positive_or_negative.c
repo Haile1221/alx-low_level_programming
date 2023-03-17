@@ -3,27 +3,24 @@
 #include <time.h>
 
 /**
- * main - Entry point
+ * main - Prints a random number and check whether
+ *        it is positive, negative, or zero.
  *
- * Description: 'the program's description'
- * parameter: if n > 0 positive, if n=0 zero and if  < 0 negative*
- * Return: Always 0 (Success)
- */
+ * Return: Always 0.
+*/
 int main(void)
-{	int n;  /* betty check codin*/
+{
+	int n;
+
 	srand(time(0));
 	n = rand() - RAND_MAX / 2;
+
 	if (n > 0)
-	{
-		printf("%d is Positive number\n", n);
-	}
-	else if (n == 0)
-	{
-		printf("%d is Zero\n", n);
-	}
-	else
-	{
+		printf("%d is positive\n", n);
+	else if (n < 0)
 		printf("%d is negative\n", n);
-	}
+	else
+		printf("%d is zero\n", n);
+
 	return (0);
 }
