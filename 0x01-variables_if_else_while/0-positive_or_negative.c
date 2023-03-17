@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-/*
-* main- print if the number is positive, negative or 0
-* Return -Always 0
-*/
-int main(void)
-{
-	int n;
 
+/**
+ * main - Entry point
+ *
+ * Description: 'the program's description'
+ * parameter: if n > 0 positive, if n=0 zero and if  < 0 negative*
+ * Return: Always 0 (Success)
+ */
+int main(void)
+{	int n;  /* betty check codin*/
 	srand(time(0));
 	n = rand() - RAND_MAX / 2;
 	if (n > 0)
