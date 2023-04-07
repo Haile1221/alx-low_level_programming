@@ -1,1 +1,1 @@
-This 0x09-static_libraries project
+my 0x09-static_libraries project
