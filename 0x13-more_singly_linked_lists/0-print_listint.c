@@ -1,4 +1,4 @@
-#include "list.h"
+#include "lists.h"
 /**
  * print_listint - prints all linked list elements
  * @h: linked list of type listint_t to print
