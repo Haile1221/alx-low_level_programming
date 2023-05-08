@@ -1,4 +1,5 @@
-#include <stdio.h>
+#include "main.h"
+
 /**
  * create_file - creates a file
  * @filename: filename.
@@ -6,29 +7,33 @@
  *
  * Return: 1 if it success. -1 if it fails.
  */
-void create_file(char *filename)
-{FILE * fp;  /* FILE datatype to store file pointer */
+int create_file(const char *filename, char *text_content)
+{
+	int fd;
+	int nletters;
+	int rwr;
 
-	fp = fopen(filename, "w"); /* open file with given filename in write mode */
+	if (!filename)
+		return (-1);
 
-	if (fp == NULL) 
-	{  /* check if the file pointer is validFILE *fp;
-	    *Declare a file pointer
-	    *Try to open the file for writing
-	    */
-		fp = fopen(filename, "w");
+	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 
-		/* Check if the file opened successfully */
-		if (fp == NULL) 
-		{
-			printf("Error opening file.");
-			return;
-		}
-		/* Write some content to the file */
-		fprintf(fp, "Hello, world!");
+	if (fd == -1)
+		return (-1);
 
-		/* Close the file */
-		fclose(fp);
+	if (!text_content)
+		text_content = "";
 
-		printf("File created successfully.");
-	}
+	for (nletters = 0; text_content[nletters]; nletters++)
+		;
+
+	rwr = write(fd, text_content, nletters);
+
+	if (rwr == -1)
+		return (-1);
+
+	close(fd);
+
+	return (1);
+}
+
