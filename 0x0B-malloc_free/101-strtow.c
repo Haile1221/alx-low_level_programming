@@ -1,5 +1,5 @@
-#include <stdlib.h>  /* Include standard library for malloc and free */
-#include "main.h"    /* Include your main header file */
+#include <stdlib.h>
+#include "main.h"
 
 /**
  * count_words - Helper function to count the number of words in a string.
@@ -9,24 +9,20 @@
  */
 int count_words(char *str)
 {
-	int words = 0, in_word = 0;
+	int flag = 0, words = 0;
 
-	/* Iterate through the characters in the string */
-	while (*str)
+	for (; *str != '\0'; str++)
 	{
-		/* Check if the character is a space */
 		if (*str == ' ')
-			in_word = 0;  /* Set in_word flag to 0 if a space is encountered */
-		else if (!in_word)
+			flag = 0;
+		else if (flag == 0)
 		{
-			in_word = 1;  /* Set in_word flag to 1 if entering a new word */
-			words++;     /* Increment the word count */
+			flag = 1;
+			words++;
 		}
-
-		str++;  /* Move to the next character in the string */
 	}
 
-	return (words);  /* Return the total number of words */
+	return (words);
 }
 
 /**
@@ -37,64 +33,54 @@ int count_words(char *str)
  */
 char **strtow(char *str)
 {
-	char **matrix, *word;
-	int i, k = 0, words, start, end;
+	char **matrix, *tmp;
+	int i, k = 0, len = 0, words, c = 0, start, end;
 
-	/* Check if the input string is NULL or empty */
-	if (str == NULL || *str == '\0')
-		return (NULL);
-
-	/* Count the number of words in the string */
+	while (str[len])
+		len++;
 	words = count_words(str);
 
-	/* If there are no words, return NULL */
 	if (words == 0)
 		return (NULL);
 
-	/* Allocate memory for the matrix of strings */
 	matrix = (char **)malloc(sizeof(char *) * (words + 1));
 
-	/* Check if memory allocation was successful */
 	if (matrix == NULL)
 		return (NULL);
 
-	/* Iterate through each word in the string */
-	for (i = 0; i < words; i++)
+	for (i = 0; i <= len; i++)
 	{
-		/* Skip leading spaces in the string */
-		while (*str == ' ')
-			str++;
-
-		start = end = 0;
-
-		/* Find the end index of the current word */
-		while (str[end] && str[end] != ' ')
-			end++;
-
-		/* Allocate memory for the current word */
-		word = (char *)malloc(sizeof(char) * (end - start + 1));
-
-		/* Check if memory allocation for the word was successful */
-		if (word == NULL)
+		if (str[i] == ' ' || str[i] == '\0')
 		{
-			/* Free previously allocated memory and return NULL */
-			for (i = 0; i < k; i++)
-				free(matrix[i]);
-			free(matrix);
-			return (NULL);
+			if (c)
+			{
+				end = i;
+				tmp = (char *)malloc(sizeof(char) * (c + 1));
+
+				if (tmp == NULL)
+				{
+					// Handle memory allocation failure
+					for (int j = 0; j < k; j++)
+						free(matrix[j]);
+					free(matrix);
+					return (NULL);
+				}
+
+				for (int j = 0; j < c; j++)
+					tmp[j] = str[start + j];
+				tmp[c] = '\0';
+
+				matrix[k] = tmp;
+				k++;
+				c = 0;
+			}
 		}
-
-		/* Copy the characters of the current word to the allocated memory */
-		for (int j = start; j < end; j++)
-			word[j - start] = str[j];
-
-		word[end - start] = '\0';  /* Null-terminate the word */
-		matrix[k++] = word;        /* Add the word to the matrix */
-		str += end;                /* Move to the next word in the string */
+		else if (c++ == 0)
+			start = i;
 	}
 
-	matrix[k] = NULL;  /* Null-terminate the matrix of strings */
+	matrix[k] = NULL;
 
-	return (matrix);  /* Return the matrix of strings */
+	return (matrix);
 }
 
