@@ -7,7 +7,7 @@
  * @s2: The second string to be concatenated.
  *
  * Return: Returns a pointer to a newly allocated space in memory containing
- *         the contents of s1 followed by the contents of s2, and null-terminated.
+ *    the contents of s1 followed by the contents of s2, and null-terminated.
  *         If NULL is passed, treat it as an empty string.
  *         Returns NULL on failure.
  */
