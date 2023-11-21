@@ -3,13 +3,15 @@
 #include "main.h"
 
 /**
- * _strdup - Duplicates a string and returns a pointer to the duplicated string.
+ * _strdup - Duplicates a string and returns a pointer
+ * to the duplicated string.
  *
  * @str: The string to be duplicated.
  *
  * Return: Returns NULL if str is NULL or if insufficient memory was available.
  *         Returns a pointer to the duplicated string on success.
- *         The returned pointer should be freed using free() when no longer needed.
+ *         The returned pointer should be freed using free()
+ *         when no longer needed.
  */
 char *_strdup(char *str)
 {
