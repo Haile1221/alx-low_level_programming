@@ -50,7 +50,6 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 	/* Null-terminate the resulting string */
 	s[i] = '\0';
 
-	/* Return the pointer to the resulting string */
 	return (s);
 }
 
